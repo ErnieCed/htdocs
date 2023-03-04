@@ -1,2 +1,5 @@
 Vista del producto
-<a href='/Productos/crear'>Crear Producto</a>
+<a href='productos.create'>Agregar Producto</a>
+
+<br></br>
+<a href="productos\create">Agregar producto</a>
