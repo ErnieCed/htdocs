@@ -1,5 +1,5 @@
 Mostrar lista de superheroes 
-<a href="{{ url('heroes/create') }}"></a>
+<a href="{{ url('heroes/create') }}">Registrar nuevo empleado</a>
 <table class= "table table light">
     <thead class="thead-light">
         <tr>
@@ -10,32 +10,23 @@ Mostrar lista de superheroes
             <th>Información Adicional</th>
             <th>Acciones</th>
         </tr>
-
-
-
     </thead>
 
     <tbody>
-        @foreach($heroes as $heroes )
+        @foreach( $heroes as $heroes )
         <tr>
             <td>{{ $heroes->id }}</td>
             <td>{{ $heroes->nombre }}</td>
             <td>{{ $heroes->nombre_real }}</td>
-
-            
-
-
-            @foreach($heroes as $heroes) 
-            <tr>
-            <td>{{$heroes->id}}</td>
             <td>
-                <img width="50px" height="50x" src="{{asset('storage'.'/'.$heroes->Foto)}}"/>
+                <img src=" {{ (asset('storage').'/'.$heroes->foto)}} " width="50px" height="50x"/>
             {{$heroes->Foto}}
 
             </td>
             <td>{{ $heroes->informacion_adicional }}</td>
             <td>
                 
+
             <a href="{{ url('/heroes/'.$heroes->id.'/edit') }}">
                     Editar
             </a>
@@ -46,13 +37,10 @@ Mostrar lista de superheroes
             {{ method_field('DELETE') }}
             <input type="submit" onclick="return confirm('¿Deseas borrar?')"
             value="Borrar">
-
             </form>
-                
-
-            
             </td>
-            @endforeach
+            <td></td>
+        
         </tr>
         @endforeach
     </tbody>

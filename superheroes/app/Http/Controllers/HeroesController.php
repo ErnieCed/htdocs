@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Heroes;
 use Illuminate\Http\Request;
-
+use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Storage;
 
 class HeroesController extends Controller
@@ -15,7 +15,7 @@ class HeroesController extends Controller
     public function index()
     {
         //
-        $datos['heroes']=Heroes::paginate(5);
+        $datos['heroes']=heroes::paginate(5);
         return view('heroes.index', $datos);
     }
 
@@ -24,7 +24,7 @@ class HeroesController extends Controller
      */
     public function create()
     {
-        return view('heroes.index');
+        return view('heroes.create');
     }
 
     /**
@@ -42,7 +42,7 @@ class HeroesController extends Controller
 
         }
 
-        Heroes::insert($datosheroes);
+        heroes::insert($datosheroes);
         return response()->json($datosheroes);
     }
 
@@ -60,8 +60,9 @@ class HeroesController extends Controller
     public function edit($id)
     {
         //
-        $heroes=Heroes::findOrFail($id);
-        return view('heroes/edit', compact('heroes'));
+        $heroes=heroes::findOrFail($id);
+
+        return view('heroes.edit',  compact('heroes'));
     }
 
     /**
@@ -70,20 +71,21 @@ class HeroesController extends Controller
     public function update(Request $request, $id)
     {
         //
-        $datosheroes=request()->except('_token','_method');
+        $datosheroes=request()->except(['_token','_method']);
 
         if($request->hasFile('foto')){
-            $heroes=Heroes::findOrFail($id);
+            $heroes=heroes::findOrFail($id);
+
             Storage::delete('public/'.$heroes->foto);
+
             $datosheroes['foto']=$request->file('foto')->store('upload','public');
 
         }
         
 
         Heroes::where('id','=',$id)->update($datosheroes);
-
-        $heroes=Heroes::findOrFail($id);
-        return view('heroes/edit', compact('heroes'));
+        $heroes=heroes::findOrFail($id);
+        return view('heroes.edit', compact('heroes'));
 
     }
 
@@ -93,7 +95,14 @@ class HeroesController extends Controller
     public function destroy($id)
     {
         //
-        Heroes::destroy($id);
+        $heroes=heroes::findOrFail($id);
+
+        if(Storage::delete('public'.$heroes->foto)){
+            heroes::destroy($id);
+        }
+        
+        
+
         return redirect('heroes');
     }
 }

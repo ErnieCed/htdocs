@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HeroesController;
+use Illuminate\Routing\RouteGroup;
 
 /*
 |--------------------------------------------------------------------------
@@ -15,7 +16,7 @@ use App\Http\Controllers\HeroesController;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('auth.login');
 });
 /*
 Route::get('/heroes', function () {
@@ -25,3 +26,13 @@ Route::get('/heroes', function () {
 Route::get('/heroes/create',[HeroesController::class,'create']);
 */
 Route::resource('heroes', HeroesController::class);
+
+Auth::routes();
+
+Route::get('/home', [HeroesController::class, 'index'])->name('home');
+
+Route::group(['middleware' => 'auth'],function (){
+
+    Route::get('/', [HeroesController::class, 'index'])->name('home');
+});
+

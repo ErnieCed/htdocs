@@ -20,4 +20,7 @@
 
 <label for="Enviar "> </label>
 <input type="submit" value="Guardar Datos">
+
+<a href="{{ url('heroes/') }}">Regresar</a>
+
 <br>
