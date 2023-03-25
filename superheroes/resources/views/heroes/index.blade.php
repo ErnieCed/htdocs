@@ -1,5 +1,15 @@
-Mostrar lista de superheroes 
-<a href="{{ url('heroes/create') }}">Registrar nuevo empleado</a>
+@extends('layouts.app')
+
+@section('content')
+<div class="container">
+
+
+
+ 
+<a href="{{ url('heroes/create') }}" class="btn btn-success " >Registrar nuevo empleado</a>
+<br/>
+<br/>
+
 <table class= "table table light">
     <thead class="thead-light">
         <tr>
@@ -19,7 +29,7 @@ Mostrar lista de superheroes
             <td>{{ $heroes->nombre }}</td>
             <td>{{ $heroes->nombre_real }}</td>
             <td>
-                <img src=" {{ (asset('storage').'/'.$heroes->foto)}} " width="50px" height="50x"/>
+                <img class=" img-thumbnail img fluid " src=" {{ (asset('storage').'/'.$heroes->foto)}} " width="50px" height="50x"/>
             {{$heroes->Foto}}
 
             </td>
@@ -27,15 +37,15 @@ Mostrar lista de superheroes
             <td>
                 
 
-            <a href="{{ url('/heroes/'.$heroes->id.'/edit') }}">
+            <a href="{{ url('/heroes/'.$heroes->id.'/edit') }}"  class= "btn btn-warning">
                     Editar
             </a>
             |
             
-            <form action="{{ url('/heroes/'.$heroes->id) }}" method="post">
+            <form action="{{ url('/heroes/'.$heroes->id) }}" class=" d-inline " method="post">
             @csrf
             {{ method_field('DELETE') }}
-            <input type="submit" onclick="return confirm('¿Deseas borrar?')"
+            <input class=" btn btn-danger" type="submit" onclick="return confirm('¿Deseas borrar?')"
             value="Borrar">
             </form>
             </td>
@@ -47,3 +57,5 @@ Mostrar lista de superheroes
 
 
 </table>
+</div>
+@endsection

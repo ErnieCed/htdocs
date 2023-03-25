@@ -1,4 +1,9 @@
-Formulario de edición de superheroes
+@extends('layouts.app')
+
+@section('content')
+<div class="container">
+
+
 
 <form action="{{url('/heroes/'.$heroes->id)}}" method="post" enctype="multipart/form-data">
 @csrf
@@ -7,4 +12,5 @@ Formulario de edición de superheroes
 @include('heroes.form')
 
 </form>
-
+</div>
+@endsection

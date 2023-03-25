@@ -25,7 +25,7 @@ Route::get('/heroes', function () {
 
 Route::get('/heroes/create',[HeroesController::class,'create']);
 */
-Route::resource('heroes', HeroesController::class);
+Route::resource('heroes', HeroesController::class)->middleware('auth');
 
 Auth::routes();
 
